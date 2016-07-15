@@ -89,7 +89,7 @@ public class MainWindow {
 					String rich = parser.translateSentenceRich(line, dir);
 					sb.append(line).append("<br>").append(" => ").append(rich).append("<br>");
 					text.setText("");
-					browser.execute(String.format("document.body.insertAdjacentHTML('beforeEnd', '%s')",
+					browser.execute(String.format("document.write('%s')",
 							sb.toString().replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"")));
 					browser.execute("window.scrollTo(0,100000);");
 				}
