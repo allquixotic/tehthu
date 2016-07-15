@@ -1,5 +1,6 @@
 package tehthu.gui;
 
+import java.io.File;
 import java.nio.file.FileSystems;
 
 import org.eclipse.swt.SWT;
@@ -28,6 +29,8 @@ public class MainWindow {
 	private Text text;
 	private Parser parser = null;
 	private StringBuilder sb = new StringBuilder();
+	private Combo combo;
+	private String fileOnStartup = null;
 
 	/**
 	 * Launch the application.
@@ -37,6 +40,8 @@ public class MainWindow {
 	public static void main(String[] args) {
 		try {
 			MainWindow window = new MainWindow();
+			if (args != null && args.length > 0 && args[0].trim().length() > 0 && new File(args[0]).exists())
+				window.fileOnStartup = args[0];
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,11 +56,20 @@ public class MainWindow {
 		createContents();
 		shlTehthuTranslator.open();
 		shlTehthuTranslator.layout();
+		if (fileOnStartup != null)
+			this.loadFile(fileOnStartup);
 		while (!shlTehthuTranslator.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
+	}
+
+	private void loadFile(String filename) {
+		parser = new Parser(FileSystems.getDefault().getPath(filename));
+		combo.add(parser.getDictionary().getLeftLangName());
+		combo.add(parser.getDictionary().getRightLangName());
+		combo.select(0);
 	}
 
 	/**
@@ -72,7 +86,7 @@ public class MainWindow {
 		browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		new Label(shlTehthuTranslator, SWT.NONE);
 
-		Combo combo = new Combo(shlTehthuTranslator, SWT.READ_ONLY);
+		combo = new Combo(shlTehthuTranslator, SWT.READ_ONLY);
 		GridData gd_combo = new GridData(SWT.FILL, SWT.BOTTOM, false, false, 1, 1);
 		gd_combo.widthHint = 113;
 		combo.setLayoutData(gd_combo);
@@ -117,10 +131,7 @@ public class MainWindow {
 				fd.setFilterExtensions(new String[] { "*.ods", "*.xlsx;*.xls;*.xlsm", "*.teh;*.txt;*.xml", "*.*" });
 				String filepath = fd.open();
 				if (filepath != null && filepath.length() > 0) {
-					parser = new Parser(FileSystems.getDefault().getPath(filepath));
-					combo.add(parser.getDictionary().getLeftLangName());
-					combo.add(parser.getDictionary().getRightLangName());
-					combo.select(0);
+					loadFile(filepath);
 				}
 			}
 		});
