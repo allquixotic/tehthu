@@ -1,0 +1,13 @@
+language: java
+before_deploy:
+  - export RELEASE_PKG_FILE=$(ls target/tehthu-*-release.jar)
+  - echo "deploying $RELEASE_PKG_FILE to GitHub releases"
+deploy:
+  provider: releases
+  api_key:
+    secure: xdJ1E/GAJ2EMqu6HgJTqWJnYRnXZdu0Sx+eEvpXqSHeNeKxdOi5b3n0NwEjkeWZrrYA6iS58+BRLy6baBmlD9V1jy6ESy3QDk5eKQoQcQmeMsIlPEu17qHB46BxwubkInq2FW/E5M0k3a2ArlnkrYiN9hOmWynlxOp8YNvrCs3KtBr5BmPSgmRrsQkweS/gihMIMHW0hu2O7cqAdQh/SsxP62aKvSfPb20CZi7mexjpLhJMNOcbMDn+89kbm301WJvhN5/pqn7kM0W4CEXg+pGTlMOfvLp0tR+D5+z5xUTUCrTRWmLD3P/hswKiOds/bkXN0fqf/Pdo8sZ8ZG0Cp1RfLvuX4AYHo3tFFONOYGnmjbAH0m5hChhJ2t0MlJq/fpn7a3S1AldTnYD/hdxr764kFO0VfQEHmKRao3FmUxwgL/VXY2iV+BIjq3snQy0PTEnzQYQK1ZxGWCciGKX6GieusndJ4Stga0N8LA8EFQ0PdWmLMOUjV6LZJEng3NvnSWTaQQWVX7H0tXhr08+blQ31549UHTIHFKWnSHHyAPerx2P9xJWTOHQHg3Mp+9KI33sSBpp3yISEW7uKDgrQYSOEbKhdmfR14QkT72uLh/M6AwmP9bPULmMGDPVR1IFPFqCZIPrnoEUrv7HBJL4zo+NHHxFRjjCbjEfXYlorJ7MI=
+  file_glob: true
+  file: "${RELEASE_PKG_FILE}"
+  on:
+    repo: allquixotic/tehthu
+    tags: true

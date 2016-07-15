@@ -41,6 +41,8 @@
 					</execution>
 				</executions>
 				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<finalName>tehthu-${project.version}-release</finalName>
 					<archive>
 						<manifest>
 							<mainClass>tehthu.gui.MainWindow</mainClass>
