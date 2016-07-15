@@ -26,12 +26,12 @@ If on a Mac, you need to run `java -XstartOnFirstThread ... (the rest of the arg
  
 ## To-Do
 
- [ ] Implement Excel file dictionaries.
- [x] Implement OpenOffice Spreadsheet dictionaries.
- [x] Implement text-based dictionaries (pipe-delimited).
- [ ] Test various sentence structures.
- [ ] Add description of file format for each type of input file.
- [ ] Tidy up the UI.
- [ ] Java Web Start.
- [ ] Binary releases.
- [ ] *Automated* binary releases. (CI?)
+- [ ] Implement Excel file dictionaries.
+- [x] Implement OpenOffice Spreadsheet dictionaries.
+- [x] Implement text-based dictionaries (pipe-delimited).
+- [ ] Extensively test various sentence structures.
+- [ ] Add description of file format for each type of input file.
+- [ ] Tidy up the UI.
+- [ ] Java Web Start.
+- [ ] Binary releases.
+- [ ] *Automated* binary releases. (CI?)
