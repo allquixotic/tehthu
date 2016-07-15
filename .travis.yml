@@ -11,3 +11,5 @@ deploy:
   on:
     repo: allquixotic/tehthu
     tags: true
+jdk:
+  - oraclejdk8
