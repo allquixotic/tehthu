@@ -31,6 +31,7 @@ public class MainWindow {
 	private StringBuilder sb = new StringBuilder();
 	private Combo combo;
 	private String fileOnStartup = null;
+	private Display disp = null;
 
 	/**
 	 * Launch the application.
@@ -53,6 +54,7 @@ public class MainWindow {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
+		disp = display;
 		createContents();
 		shlTehthuTranslator.open();
 		shlTehthuTranslator.layout();
@@ -97,15 +99,22 @@ public class MainWindow {
 			public void keyTraversed(TraverseEvent arg0) {
 				if (arg0.detail == SWT.TRAVERSE_RETURN && parser != null && combo.getSelectionIndex() >= 0) {
 					// User pressed enter and parser exists
-					sb = new StringBuilder();
 					Direction dir = (combo.getSelectionIndex() == 0 ? Direction.LTR : Direction.RTL);
 					String line = text.getText();
 					String rich = parser.translateSentenceRich(line, dir);
 					sb.append(line).append("<br>").append(" => ").append(rich).append("<br>");
 					text.setText("");
-					browser.execute(String.format("document.write('%s')",
-							sb.toString().replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"")));
-					browser.execute("window.scrollTo(0,100000);");
+					browser.setText(sb.toString());
+					Thread t = new Thread(() -> {
+						try {
+							Thread.sleep(225);
+						} catch (InterruptedException ie) {
+						}
+						disp.syncExec(() -> {
+							browser.execute("window.scrollTo(0,document.body.scrollHeight)");
+						});
+					});
+					t.start();
 				}
 			}
 		});
