@@ -26,12 +26,6 @@ public class Rope {
 		return getText(false);
 	}
 
-	public void debugRope() {
-		for (java.util.Map.Entry<String, Lang> entry : strings.entries()) {
-			System.err.println("Rope Element " + entry.getKey() + " of type " + entry.getValue().name());
-		}
-	}
-
 	public String getText(boolean rich) {
 		StringBuilder sb = new StringBuilder();
 		Lang prevLang = null;
@@ -51,13 +45,19 @@ public class Rope {
 
 			switch (entry.getValue()) {
 			case L:
-				if (rich) {
+				if (rich && sourceLanguage == Lang.L) {
 					encloseInBold(sb, entry.getKey());
 				} else {
 					sb.append(entry.getKey());
 				}
 				break;
 			case R:
+				if (rich && sourceLanguage == Lang.R) {
+					encloseInBold(sb, entry.getKey());
+				} else {
+					sb.append(entry.getKey());
+				}
+				break;
 			case S:
 			case AO:
 			case PO:

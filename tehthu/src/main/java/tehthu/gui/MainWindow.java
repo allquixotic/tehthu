@@ -67,7 +67,7 @@ public class MainWindow {
 		shlTehthuTranslator.setText("Tehthu Translator");
 		shlTehthuTranslator.setLayout(new GridLayout(3, false));
 
-		Browser browser = new Browser(shlTehthuTranslator, SWT.V_SCROLL | SWT.BORDER);
+		Browser browser = new Browser(shlTehthuTranslator, SWT.NONE);
 		browser.setJavascriptEnabled(false);
 		browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		new Label(shlTehthuTranslator, SWT.NONE);
@@ -83,12 +83,15 @@ public class MainWindow {
 			public void keyTraversed(TraverseEvent arg0) {
 				if (arg0.detail == SWT.TRAVERSE_RETURN && parser != null && combo.getSelectionIndex() >= 0) {
 					// User pressed enter and parser exists
+					sb = new StringBuilder();
 					Direction dir = (combo.getSelectionIndex() == 0 ? Direction.LTR : Direction.RTL);
 					String line = text.getText();
 					String rich = parser.translateSentenceRich(line, dir);
 					sb.append(line).append("<br>").append(" => ").append(rich).append("<br>");
-					browser.setText(sb.toString());
 					text.setText("");
+					browser.execute(String.format("document.body.insertAdjacentHTML('beforeEnd', '%s')",
+							sb.toString().replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"")));
+					browser.execute("window.scrollTo(0,100000);");
 				}
 			}
 		});

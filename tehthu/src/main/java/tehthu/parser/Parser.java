@@ -33,7 +33,6 @@ public class Parser {
 	public String translateSentencePlain(String sent, Direction d) {
 		Rope r = sanitizeAndRope(sent, d);
 		Rope translated = translate(r, d);
-		translated.debugRope();
 		return translated.getText(false);
 	}
 
