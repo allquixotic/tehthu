@@ -1,5 +1,7 @@
 # tehthu
 
+[![Build Status](https://travis-ci.org/allquixotic/tehthu.svg?branch=master)](https://travis-ci.org/allquixotic/tehthu)
+
 ## Build
 
 (only if you can't run one of the files under Releases or need the latest development version)
