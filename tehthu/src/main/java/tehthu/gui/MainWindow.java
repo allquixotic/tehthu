@@ -84,7 +84,7 @@ public class MainWindow {
 		shlTehthuTranslator.setLayout(new GridLayout(3, false));
 
 		Browser browser = new Browser(shlTehthuTranslator, SWT.NONE);
-		browser.setJavascriptEnabled(false);
+		browser.setJavascriptEnabled(true);
 		browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		new Label(shlTehthuTranslator, SWT.NONE);
 
@@ -105,16 +105,7 @@ public class MainWindow {
 					sb.append(line).append("<br>").append(" => ").append(rich).append("<br>");
 					text.setText("");
 					browser.setText(sb.toString());
-					Thread t = new Thread(() -> {
-						try {
-							Thread.sleep(225);
-						} catch (InterruptedException ie) {
-						}
-						disp.syncExec(() -> {
-							browser.execute("window.scrollTo(0,document.body.scrollHeight)");
-						});
-					});
-					t.start();
+					browser.execute("window.scrollTo(0,document.body.scrollHeight)");
 				}
 			}
 		});
