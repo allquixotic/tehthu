@@ -52,7 +52,7 @@
 				</executions>
 				<configuration>
 					<appendAssemblyId>false</appendAssemblyId>
-					<finalName>tehthu-${project.version}-release</finalName>
+					<finalName>bundle-tehthu-${project.version}-release</finalName>
 					<archive>
 						<manifest>
 							<mainClass>${main.class}</mainClass>
