@@ -5,6 +5,8 @@ import java.nio.file.FileSystems;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.ProgressAdapter;
+import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -105,7 +107,6 @@ public class MainWindow {
 					sb.append(line).append("<br>").append(" => ").append(rich).append("<br>");
 					text.setText("");
 					browser.setText(sb.toString());
-					browser.execute("window.scrollTo(0,document.body.scrollHeight)");
 				}
 			}
 		});
@@ -136,6 +137,13 @@ public class MainWindow {
 			}
 		});
 		openMenuItem.setText("Open");
+
+		browser.addProgressListener(new ProgressAdapter() {
+			@Override
+			public void completed(ProgressEvent arg0) {
+				browser.execute("window.scrollTo(0,document.body.scrollHeight)");
+			}
+		});
 
 		MenuItem quitMenuItem = new MenuItem(menu_1, SWT.NONE);
 		quitMenuItem.addSelectionListener(new SelectionAdapter() {
